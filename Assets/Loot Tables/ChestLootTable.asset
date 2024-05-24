@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e398ec4b4eb284b8c6107ff0230b09, type: 3}
+  m_Name: ChestLootTable
+  m_EditorClassIdentifier: 
+  lootItems:
+  - itemName: "Le bon sens a Guilloti\xE8re"
+    itemPrefab: {fileID: 8824661672300692283, guid: e7929bef1445fa84785b647205a9fb6e,
+      type: 3}
+    dropChance: 0
+  - itemName: Oeil droit de Romain le Grand Dictateur du monde Asiatique
+    itemPrefab: {fileID: 5270804598518203431, guid: 34256e2f3f915df47ba77049e45ebfef,
+      type: 3}
+    dropChance: 1
+  - itemName: Oeil gauche de Romain le Grand Dictateur du monde Asiatique
+    itemPrefab: {fileID: 6919117029561067898, guid: beb5255f1abd992418e4b6ef75ecb6a9,
+      type: 3}
+    dropChance: 1
+  - itemName: "La fourchette purificatrice de Nattan le Grand Sage de la puret\xE9"
+    itemPrefab: {fileID: 6625540438753077533, guid: 06fc07f904e1c804eb99be824046a123,
+      type: 3}
+    dropChance: 3
+  - itemName: Le shampoing des impurs de classe B
+    itemPrefab: {fileID: 2786379995630128731, guid: 43ca914b0af819546871b0d997ad9a09,
+      type: 3}
+    dropChance: 100
+  - itemName: La banane de Rayan
+    itemPrefab: {fileID: 6919117029561067898, guid: beb5255f1abd992418e4b6ef75ecb6a9,
+      type: 3}
+    dropChance: 100
+  - itemName: "La libido d\xE9bordante du p\xE9ch\xE9 de Benjamin T."
+    itemPrefab: {fileID: 132757205823454862, guid: 793fd8343717bb14f8b4a614085bb023,
+      type: 3}
+    dropChance: 45
