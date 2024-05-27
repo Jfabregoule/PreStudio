@@ -115,9 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3121187841052388077}
-  initialSpeed: 5
-  accelerationRate: 2
-  maxSpeed: 20
+  initialSpeed: 10
+  accelerationRate: 100
+  maxSpeed: 50
   lifetime: 5
 --- !u!54 &3121187841052388077
 Rigidbody:

@@ -47,7 +47,6 @@ public class CharacterIdleState : CharacterState
         }
 
         _scrollDir = character.Controller.GetScrollDirection();
-        Debug.Log(_scrollDir);
         if (_scrollDir == 0) return;
         character.ChangeWeapon(_scrollDir);
     }

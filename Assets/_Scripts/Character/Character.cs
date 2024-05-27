@@ -116,6 +116,19 @@ public class Character : MonoBehaviour, IDamageable
                     CurrentWeapon = Weapons[Weapons.IndexOf(CurrentWeapon) - 1];
             }
         }
-        
+    }
+
+    public void ChangeWeapon(int slot)
+    {
+        if (Time.time - lastWeaponSwitchTime >= weaponSwitchCooldown)
+        {
+            Debug.Log(slot);
+            lastWeaponSwitchTime = Time.time;
+
+            if (slot < Weapons.Count && Weapons[slot] != null)
+            {
+                CurrentWeapon = Weapons[slot];
+            }
+        }
     }
 }

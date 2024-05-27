@@ -31,6 +31,7 @@ public class CharacterMovingState : CharacterState
         character.Controller.onShootEnter += OnShootEnter;
         character.Controller.onShootExit += OnShootExit;
         character.Controller.onReload += OnReload;
+        character.Controller.onSwitchWeaponKeyboard += OnSwitchWeaponKeyboard;
         character.RB.drag = 2.5f;
     }
 
@@ -43,6 +44,7 @@ public class CharacterMovingState : CharacterState
         character.Controller.onShootEnter -= OnShootEnter;
         character.Controller.onShootExit -= OnShootExit;
         character.Controller.onReload -= OnReload;
+        character.Controller.onSwitchWeaponKeyboard -= OnSwitchWeaponKeyboard;
     }
 
     public override void FrameUpdate()
@@ -147,5 +149,9 @@ public class CharacterMovingState : CharacterState
     public bool IsGrounded()
     {
         return (character.RB.velocity.y <= 0.1f && character.RB.velocity.y >= -0.1f);
+    }
+    private void OnSwitchWeaponKeyboard()
+    {
+        character.ChangeWeapon(character.Controller.GetNumKeyPressed());
     }
 }
