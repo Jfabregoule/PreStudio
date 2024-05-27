@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public delegate void SwitchWeaponKeyboard();
     public event SwitchWeaponKeyboard onSwitchWeaponKeyboard;
 
-    private int lastNumKey = -1;
+    private int lastNumKey = 1;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         _controllerMap.Player.Shoot.canceled += ctx => ShootExitEvent();
         _controllerMap.Player.Reload.started += ctx => ReloadEvent();
         _controllerMap.Player.NumKeys.performed += ctx => SwitchWeaponKeyboardEvent();
-        _controllerMap.Player.NumKeys.performed += ctx => lastNumKey = ctx.ReadValue<int>();
+        _controllerMap.Player.NumKeys.performed += ctx => lastNumKey = (int)ctx.ReadValue<float>();
     }
 
     private void OnDisable()
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         _controllerMap.Player.Shoot.canceled -= ctx => ShootExitEvent();
         _controllerMap.Player.Reload.started -= ctx => ReloadEvent();
         _controllerMap.Player.NumKeys.performed -= ctx => SwitchWeaponKeyboardEvent();
-        _controllerMap.Player.NumKeys.performed -= ctx => lastNumKey = ctx.ReadValue<int>();
+        _controllerMap.Player.NumKeys.performed -= ctx => lastNumKey = (int)ctx.ReadValue<float>();
         _controllerMap.Disable();
     }
 

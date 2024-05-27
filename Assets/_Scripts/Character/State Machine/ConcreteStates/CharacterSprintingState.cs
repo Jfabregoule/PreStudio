@@ -31,6 +31,7 @@ public class CharacterSprintingState : CharacterState
         character.Controller.onShootEnter += OnShootEnter;
         character.Controller.onShootExit += OnShootExit;
         character.Controller.onReload += OnReload;
+        character.Controller.onSwitchWeaponKeyboard += OnSwitchWeaponKeyboard;
     }
 
     public override void ExitState()
@@ -42,6 +43,7 @@ public class CharacterSprintingState : CharacterState
         character.Controller.onShootEnter -= OnShootEnter;
         character.Controller.onShootExit -= OnShootExit;
         character.Controller.onReload -= OnReload;
+        character.Controller.onSwitchWeaponKeyboard -= OnSwitchWeaponKeyboard;
     }
 
     public override void FrameUpdate()
@@ -150,6 +152,10 @@ public class CharacterSprintingState : CharacterState
     {
         if (character.CurrentWeapon.CurrentAmmos != character.CurrentWeapon.MaxAmmos)
             character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ReloadingState);
+    }
+    private void OnSwitchWeaponKeyboard()
+    {
+        character.ChangeWeapon(character.Controller.GetNumKeyPressed());
     }
 
     public bool IsGrounded()

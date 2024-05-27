@@ -51,6 +51,7 @@ public class Character : MonoBehaviour, IDamageable
     {
         CurrentHealth = MaxHealth;
         CurrentWeapon = Weapons[0];
+        CurrentWeapon.gameObject.SetActive(true);
         StateMachine.Initialize(IdleState);
         lastWeaponSwitchTime = -weaponSwitchCooldown;
     }
@@ -100,20 +101,34 @@ public class Character : MonoBehaviour, IDamageable
         if (Time.time - lastWeaponSwitchTime >= weaponSwitchCooldown)
         {
             lastWeaponSwitchTime = Time.time;
+            CurrentWeapon.gameObject.SetActive(false);
+            CurrentWeapon.ChangeWeaponState(CurrentWeapon.IdleState);
 
             if (side == 1)
             {
                 if (CurrentWeapon == Weapons[Weapons.Count - 1])
+                { 
                     CurrentWeapon = Weapons[0];
+                    CurrentWeapon.gameObject.SetActive(true);
+                }
                 else
+                {
                     CurrentWeapon = Weapons[Weapons.IndexOf(CurrentWeapon) + 1];
+                    CurrentWeapon.gameObject.SetActive(true);
+                }
             }
             else if (side == -1)
             {
                 if (CurrentWeapon == Weapons[0])
+                {
                     CurrentWeapon = Weapons[Weapons.Count - 1];
+                    CurrentWeapon.gameObject.SetActive(true);
+                }
                 else
+                {
                     CurrentWeapon = Weapons[Weapons.IndexOf(CurrentWeapon) - 1];
+                    CurrentWeapon.gameObject.SetActive(true);
+                }
             }
         }
     }
@@ -122,12 +137,14 @@ public class Character : MonoBehaviour, IDamageable
     {
         if (Time.time - lastWeaponSwitchTime >= weaponSwitchCooldown)
         {
-            Debug.Log(slot);
             lastWeaponSwitchTime = Time.time;
 
-            if (slot < Weapons.Count && Weapons[slot] != null)
+            if (slot - 1 < Weapons.Count && Weapons[slot - 1] != null)
             {
-                CurrentWeapon = Weapons[slot];
+                CurrentWeapon.ChangeWeaponState(CurrentWeapon.IdleState);
+                CurrentWeapon.gameObject.SetActive(false);
+                CurrentWeapon = Weapons[slot - 1];
+                CurrentWeapon.gameObject.SetActive(true);
             }
         }
     }

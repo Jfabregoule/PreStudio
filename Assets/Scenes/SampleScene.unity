@@ -285,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &85201885
 Transform:
   m_ObjectHideFlags: 0
@@ -1053,7 +1053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &879301299
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,10 +1081,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88a8c4f983e3694fa87131ed4c5b1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxAmmos: 6
+  MaxAmmos: 12
   _shootingStateDescriptor:
     damage: 1
-    fireRate: 3
+    fireRate: 10
   _reloadingStateDescriptor:
     reloadingTime: 1
   _isShooting: 0

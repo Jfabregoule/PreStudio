@@ -22,6 +22,7 @@ public class CharacterIdleState : CharacterState
         character.Controller.onShootEnter += OnShootEnter;
         character.Controller.onShootExit += OnShootExit;
         character.Controller.onReload += OnReload;
+        character.Controller.onSwitchWeaponKeyboard += OnSwitchWeaponKeyboard;
         character.RB.drag = 2.5f;
     }
 
@@ -34,6 +35,7 @@ public class CharacterIdleState : CharacterState
         character.Controller.onShootEnter -= OnShootEnter;
         character.Controller.onShootExit -= OnShootExit;
         character.Controller.onReload -= OnReload;
+        character.Controller.onSwitchWeaponKeyboard -= OnSwitchWeaponKeyboard;
     }
 
     public override void FrameUpdate()
@@ -103,6 +105,10 @@ public class CharacterIdleState : CharacterState
     {
         if (character.CurrentWeapon.CurrentAmmos != character.CurrentWeapon.MaxAmmos)
             character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ReloadingState);
+    }
+    private void OnSwitchWeaponKeyboard()
+    {
+        character.ChangeWeapon(character.Controller.GetNumKeyPressed());
     }
 
     public bool IsGrounded()

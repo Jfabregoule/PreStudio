@@ -30,6 +30,7 @@ public class CharacterJumpingState : CharacterState
         character.Controller.onShootEnter += OnShootEnter;
         character.Controller.onShootExit += OnShootExit;
         character.Controller.onReload += OnReload;
+        character.Controller.onSwitchWeaponKeyboard += OnSwitchWeaponKeyboard;
 
         character.RB.drag = 0;
         character.RB.AddForce(new Vector3(0.0f, _desc.jumpHeight, 0.0f), ForceMode.Impulse);
@@ -42,6 +43,7 @@ public class CharacterJumpingState : CharacterState
         character.Controller.onShootEnter -= OnShootEnter;
         character.Controller.onShootExit -= OnShootExit;
         character.Controller.onReload -= OnReload;
+        character.Controller.onSwitchWeaponKeyboard -= OnSwitchWeaponKeyboard;
     }
 
     public override void FrameUpdate()
@@ -132,6 +134,10 @@ public class CharacterJumpingState : CharacterState
     {
         if (character.CurrentWeapon.CurrentAmmos != character.CurrentWeapon.MaxAmmos)
             character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ReloadingState);
+    }
+    private void OnSwitchWeaponKeyboard()
+    {
+        character.ChangeWeapon(character.Controller.GetNumKeyPressed());
     }
 
     public bool IsGrounded()
