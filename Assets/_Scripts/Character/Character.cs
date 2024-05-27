@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour, IDamageable
 {
@@ -11,7 +12,12 @@ public class Character : MonoBehaviour, IDamageable
 
     public PlayerController Controller;
     public Rigidbody RB;
-    public Weapon Weapon;
+    public List<Weapon> Weapons;
+    [HideInInspector]
+    public Weapon CurrentWeapon;
+
+    private float weaponSwitchCooldown = 0.2f;
+    private float lastWeaponSwitchTime;
 
     [SerializeField] private CharacterMovingState.Descriptor _movingStateDescriptor;
     [SerializeField] private CharacterSprintingState.Descriptor _sprintingStateDescriptor;
@@ -44,7 +50,9 @@ public class Character : MonoBehaviour, IDamageable
     private void Start()
     {
         CurrentHealth = MaxHealth;
+        CurrentWeapon = Weapons[0];
         StateMachine.Initialize(IdleState);
+        lastWeaponSwitchTime = -weaponSwitchCooldown;
     }
 
     private void Update()
@@ -85,5 +93,29 @@ public class Character : MonoBehaviour, IDamageable
     public void ChangeCharacterState(CharacterState state)
     {
         StateMachine.ChangeState(state);
+    }
+
+    public void ChangeWeapon(float side)
+    {
+        if (Time.time - lastWeaponSwitchTime >= weaponSwitchCooldown)
+        {
+            lastWeaponSwitchTime = Time.time;
+
+            if (side == 1)
+            {
+                if (CurrentWeapon == Weapons[Weapons.Count - 1])
+                    CurrentWeapon = Weapons[0];
+                else
+                    CurrentWeapon = Weapons[Weapons.IndexOf(CurrentWeapon) + 1];
+            }
+            else if (side == -1)
+            {
+                if (CurrentWeapon == Weapons[0])
+                    CurrentWeapon = Weapons[Weapons.Count - 1];
+                else
+                    CurrentWeapon = Weapons[Weapons.IndexOf(CurrentWeapon) - 1];
+            }
+        }
+        
     }
 }

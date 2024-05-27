@@ -278,10 +278,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85201885}
-  - component: {fileID: 85201886}
   - component: {fileID: 85201887}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Rocket Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,14 +294,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85201883}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1618484884}
+  m_Father: {fileID: 1566254211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &85201886
+--- !u!114 &85201887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,39 +310,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 85201883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b88a8c4f983e3694fa87131ed4c5b1f8, type: 3}
+  m_Script: {fileID: 11500000, guid: d96698f042edadc4dbcd040bd1737952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxAmmos: 1
   _shootingStateDescriptor:
-    damage: 1
-    fireRate: 3
+    damage: 10
+    fireRate: 1
   _reloadingStateDescriptor:
-    reloadingTime: 1
+    reloadingTime: 2
   _isShooting: 0
   shootCooldown: 0
-  projectilePrefab: {fileID: 2801100333457786654, guid: 926fd248b2426c4499090b19d509ec55,
-    type: 3}
-  cameraTransform: {fileID: 330585546}
---- !u!114 &85201887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85201883}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1f5169d104b3ce408d39bf64ea00db7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootingStateDescriptor:
-    damage: 1
-    fireRate: 3
-  _reloadingStateDescriptor:
-    reloadingTime: 1
-  _isShooting: 0
-  shootCooldown: 0
-  projectilePrefab: {fileID: 2801100333457786654, guid: 926fd248b2426c4499090b19d509ec55,
+  projectilePrefab: {fileID: 4504472583610287950, guid: e41ec6b1a6297154b850c9bd1b9ebb2e,
     type: 3}
   cameraTransform: {fileID: 330585546}
 --- !u!1 &330585543
@@ -814,6 +792,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &879301298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879301299}
+  - component: {fileID: 879301300}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879301299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879301298}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1566254211}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879301300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879301298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b88a8c4f983e3694fa87131ed4c5b1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxAmmos: 6
+  _shootingStateDescriptor:
+    damage: 1
+    fireRate: 3
+  _reloadingStateDescriptor:
+    reloadingTime: 1
+  _isShooting: 0
+  shootCooldown: 0
+  projectilePrefab: {fileID: 2801100333457786654, guid: 926fd248b2426c4499090b19d509ec55,
+    type: 3}
+  cameraTransform: {fileID: 330585546}
 --- !u!1 &1430372455
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +980,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1566254210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1566254211}
+  m_Layer: 0
+  m_Name: Weapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1566254211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566254210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 879301299}
+  - {fileID: 85201885}
+  m_Father: {fileID: 1618484884}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1618484878
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +1049,10 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   Controller: {fileID: 1749769380}
   RB: {fileID: 1618484880}
-  Weapon: {fileID: 85201886}
+  Weapons:
+  - {fileID: 879301300}
+  - {fileID: 85201887}
+  CurrentWeapon: {fileID: 879301300}
   _movingStateDescriptor:
     CameraTransform: {fileID: 330585546}
     Speed: 5
@@ -1116,7 +1185,7 @@ Transform:
   m_Children:
   - {fileID: 1749769381}
   - {fileID: 330585546}
-  - {fileID: 85201885}
+  - {fileID: 1566254211}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749769379

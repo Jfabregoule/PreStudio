@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour
 {
@@ -58,6 +59,23 @@ public class PlayerController : MonoBehaviour
     {
         if (!gameObject.activeSelf) return Vector2.zero;
         return _controllerMap.Player.Movement.ReadValue<Vector2>();
+    }
+    public float GetScrollDirection()
+    {
+        float scrollValue = _controllerMap.Player.SwitchWeapon.ReadValue<float>();
+
+        if (scrollValue > 0)
+        {
+            return 1f;
+        }
+        else if (scrollValue < 0)
+        {
+            return -1f;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 
     public Vector2 GetCameraRotation()

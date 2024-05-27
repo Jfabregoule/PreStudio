@@ -6,9 +6,8 @@ using static PlayerController;
 
 public class CharacterIdleState : CharacterState
 {
-    const string SPEED_PARAM = "Speed";
-
     Vector2 _moveDir;
+    float _scrollDir;
 
     public CharacterIdleState(Character character, CharacterStateMachine characterStateMachine) : base(character, characterStateMachine)
     {
@@ -17,7 +16,6 @@ public class CharacterIdleState : CharacterState
     public override void EnterState()
     {
         base.EnterState();
-        Vector2 moveDir = character.Controller.GetMoveDirection();
 
         character.Controller.onInteract += OnInteract;
         character.Controller.onJump += OnJump;
@@ -43,9 +41,15 @@ public class CharacterIdleState : CharacterState
         base.FrameUpdate();
 
         _moveDir = character.Controller.GetMoveDirection();
-        if (_moveDir == Vector2.zero) return;
+        if (_moveDir != Vector2.zero)
+        {
+            characterStateMachine.ChangeState(character.MovingState);
+        }
 
-        characterStateMachine.ChangeState(character.MovingState);
+        _scrollDir = character.Controller.GetScrollDirection();
+        Debug.Log(_scrollDir);
+        if (_scrollDir == 0) return;
+        character.ChangeWeapon(_scrollDir);
     }
 
     public override void PhysicsUpdate()
@@ -87,19 +91,19 @@ public class CharacterIdleState : CharacterState
     }
     private void OnShootEnter()
     {
-        character.Weapon._isShooting = true;
-        character.Weapon.ChangeWeaponState(character.Weapon.ShootingState);
+        character.CurrentWeapon._isShooting = true;
+        character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ShootingState);
     }
     private void OnShootExit()
     {
-        character.Weapon._isShooting = false;
-        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.IdleState && character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
-            character.Weapon.ChangeWeaponState(character.Weapon.IdleState);
+        character.CurrentWeapon._isShooting = false;
+        if (character.CurrentWeapon.StateMachine.CurrentWeaponState != character.CurrentWeapon.IdleState && character.CurrentWeapon.StateMachine.CurrentWeaponState != character.CurrentWeapon.ReloadingState)
+            character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.IdleState);
     }
     private void OnReload()
     {
-        if (character.Weapon.CurrentAmmos != character.Weapon.MaxAmmos)
-            character.Weapon.ChangeWeaponState(character.Weapon.ReloadingState);
+        if (character.CurrentWeapon.CurrentAmmos != character.CurrentWeapon.MaxAmmos)
+            character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ReloadingState);
     }
 
     public bool IsGrounded()

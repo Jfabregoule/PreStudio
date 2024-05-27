@@ -5,9 +5,7 @@ using static PlayerController;
 
 public class CharacterMovingState : CharacterState
 {
-    const string SPEED_PARAM = "Speed";
-    const string DIRX_PARAM = "DirX";
-    const string DIRY_PARAM = "DirY";
+    float _scrollDir;
 
     [System.Serializable]
     public struct Descriptor
@@ -79,6 +77,10 @@ public class CharacterMovingState : CharacterState
         }
         currentVel.y = yVelocity;
         character.RB.velocity = currentVel;
+
+        _scrollDir = character.Controller.GetScrollDirection();
+        if (_scrollDir == 0) return;
+        character.ChangeWeapon(_scrollDir);
     }
 
     public override void PhysicsUpdate()
@@ -126,20 +128,20 @@ public class CharacterMovingState : CharacterState
     }
     private void OnShootEnter()
     {
-        character.Weapon._isShooting = true;
-        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
-            character.Weapon.ChangeWeaponState(character.Weapon.ShootingState);
+        character.CurrentWeapon._isShooting = true;
+        if (character.CurrentWeapon.StateMachine.CurrentWeaponState != character.CurrentWeapon.ReloadingState)
+            character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ShootingState);
     }
     private void OnShootExit()
     {
-        character.Weapon._isShooting = false;
-        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.IdleState && character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
-            character.Weapon.ChangeWeaponState(character.Weapon.IdleState);
+        character.CurrentWeapon._isShooting = false;
+        if (character.CurrentWeapon.StateMachine.CurrentWeaponState != character.CurrentWeapon.IdleState && character.CurrentWeapon.StateMachine.CurrentWeaponState != character.CurrentWeapon.ReloadingState)
+            character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.IdleState);
     }
     private void OnReload()
     {
-        if (character.Weapon.CurrentAmmos != character.Weapon.MaxAmmos)
-            character.Weapon.ChangeWeaponState(character.Weapon.ReloadingState);
+        if (character.CurrentWeapon.CurrentAmmos != character.CurrentWeapon.MaxAmmos)
+            character.CurrentWeapon.ChangeWeaponState(character.CurrentWeapon.ReloadingState);
     }
 
     public bool IsGrounded()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int MaxAmmos { get; set; } = 6;
+    public int MaxAmmos = 6;
     public int CurrentAmmos { get; set; } = 6;
 
     [SerializeField] private WeaponShootingState.Descriptor _shootingStateDescriptor;
@@ -44,7 +44,6 @@ public class Weapon : MonoBehaviour
 
     protected virtual void Update()
     {
-        Debug.Log(StateMachine.CurrentWeaponState);
         StateMachine.CurrentWeaponState.FrameUpdate();
     }
 
