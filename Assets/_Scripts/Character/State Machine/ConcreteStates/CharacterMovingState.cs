@@ -28,12 +28,23 @@ public class CharacterMovingState : CharacterState
     {
         base.EnterState();
         character.Controller.onInteract += OnInteract;
+        character.Controller.onJump += OnJump;
+        character.Controller.onSprintEnter += OnSprintEnter;
+        character.Controller.onShootEnter += OnShootEnter;
+        character.Controller.onShootExit += OnShootExit;
+        character.Controller.onReload += OnReload;
+        character.RB.drag = 2.5f;
     }
 
     public override void ExitState()
     {
         base.ExitState();
         character.Controller.onInteract -= OnInteract;
+        character.Controller.onJump -= OnJump;
+        character.Controller.onSprintEnter -= OnSprintEnter;
+        character.Controller.onShootEnter -= OnShootEnter;
+        character.Controller.onShootExit -= OnShootExit;
+        character.Controller.onReload -= OnReload;
     }
 
     public override void FrameUpdate()
@@ -100,5 +111,39 @@ public class CharacterMovingState : CharacterState
                 }
             }
         }
+    }
+
+    private void OnJump()
+    {
+        if (IsGrounded())
+        {
+            characterStateMachine.ChangeState(character.JumpingState);
+        }
+    }
+    private void OnSprintEnter()
+    {
+        characterStateMachine.ChangeState(character.SprintingState);
+    }
+    private void OnShootEnter()
+    {
+        character.Weapon._isShooting = true;
+        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
+            character.Weapon.ChangeWeaponState(character.Weapon.ShootingState);
+    }
+    private void OnShootExit()
+    {
+        character.Weapon._isShooting = false;
+        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.IdleState && character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
+            character.Weapon.ChangeWeaponState(character.Weapon.IdleState);
+    }
+    private void OnReload()
+    {
+        if (character.Weapon.CurrentAmmos != character.Weapon.MaxAmmos)
+            character.Weapon.ChangeWeaponState(character.Weapon.ReloadingState);
+    }
+
+    public bool IsGrounded()
+    {
+        return (character.RB.velocity.y <= 0.1f && character.RB.velocity.y >= -0.1f);
     }
 }

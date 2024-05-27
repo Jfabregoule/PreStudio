@@ -11,14 +11,21 @@ public class Character : MonoBehaviour, IDamageable
 
     public PlayerController Controller;
     public Rigidbody RB;
+    public Weapon Weapon;
 
     [SerializeField] private CharacterMovingState.Descriptor _movingStateDescriptor;
+    [SerializeField] private CharacterSprintingState.Descriptor _sprintingStateDescriptor;
+    [SerializeField] private CharacterJumpingState.Descriptor _jumpingStateDescriptor;
+    [SerializeField] private CharacterAirBornState.Descriptor _airBornStateDescriptor;
 
     #region State Machine Variables
 
     public CharacterStateMachine StateMachine { get; set; }
     public CharacterIdleState IdleState { get; set; }
     public CharacterMovingState MovingState { get; set; }
+    public CharacterSprintingState SprintingState { get; set; }
+    public CharacterJumpingState JumpingState { get; set; }
+    public CharacterAirBornState AirBornState { get; set; }
     public CharacterDyingState DyingState { get; set; }
 
     #endregion
@@ -29,6 +36,9 @@ public class Character : MonoBehaviour, IDamageable
         IdleState = new CharacterIdleState(this, StateMachine);
         DyingState = new CharacterDyingState(this, StateMachine);
         MovingState = new CharacterMovingState(this, StateMachine, _movingStateDescriptor);
+        SprintingState = new CharacterSprintingState(this, StateMachine, _sprintingStateDescriptor);
+        JumpingState = new CharacterJumpingState(this, StateMachine, _jumpingStateDescriptor);
+        AirBornState = new CharacterAirBornState(this, StateMachine, _airBornStateDescriptor);
     }
 
     private void Start()

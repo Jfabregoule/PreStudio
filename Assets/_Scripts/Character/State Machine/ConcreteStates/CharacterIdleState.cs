@@ -20,6 +20,11 @@ public class CharacterIdleState : CharacterState
         Vector2 moveDir = character.Controller.GetMoveDirection();
 
         character.Controller.onInteract += OnInteract;
+        character.Controller.onJump += OnJump;
+        character.Controller.onShootEnter += OnShootEnter;
+        character.Controller.onShootExit += OnShootExit;
+        character.Controller.onReload += OnReload;
+        character.RB.drag = 2.5f;
     }
 
     public override void ExitState()
@@ -27,6 +32,10 @@ public class CharacterIdleState : CharacterState
         base.ExitState();
 
         character.Controller.onInteract -= OnInteract;
+        character.Controller.onJump -= OnJump;
+        character.Controller.onShootEnter -= OnShootEnter;
+        character.Controller.onShootExit -= OnShootExit;
+        character.Controller.onReload -= OnReload;
     }
 
     public override void FrameUpdate()
@@ -68,5 +77,33 @@ public class CharacterIdleState : CharacterState
                 }
             }
         }
+    }
+    private void OnJump()
+    {
+        if (IsGrounded())
+        {
+            characterStateMachine.ChangeState(character.JumpingState);
+        }
+    }
+    private void OnShootEnter()
+    {
+        character.Weapon._isShooting = true;
+        character.Weapon.ChangeWeaponState(character.Weapon.ShootingState);
+    }
+    private void OnShootExit()
+    {
+        character.Weapon._isShooting = false;
+        if (character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.IdleState && character.Weapon.StateMachine.CurrentWeaponState != character.Weapon.ReloadingState)
+            character.Weapon.ChangeWeaponState(character.Weapon.IdleState);
+    }
+    private void OnReload()
+    {
+        if (character.Weapon.CurrentAmmos != character.Weapon.MaxAmmos)
+            character.Weapon.ChangeWeaponState(character.Weapon.ReloadingState);
+    }
+
+    public bool IsGrounded()
+    {
+        return (character.RB.velocity.y <= 0.1f && character.RB.velocity.y >= -0.1f);
     }
 }
